@@ -18,8 +18,10 @@ public class Result {
         return result;
     }
     public static Result success(Object object) {
-        Result result = success();
+        Result result = new Result();
         result.data = object;
+        result.code = 1;
+        result.msg = "success";
         return result;
     }
     public static Result error(String msg) {

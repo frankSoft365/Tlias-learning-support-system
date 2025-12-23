@@ -1,7 +1,28 @@
 package com.microsoft.service.impl;
 
+import com.microsoft.mapper.DeptMapper;
+import com.microsoft.pojo.Dept;
+import com.microsoft.service.DeptService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
-public class DeptServiceImpl {
+public class DeptServiceImpl implements DeptService {
+
+
+    @Autowired
+    private DeptMapper deptMapper;
+
+    @Override
+    public List<Dept> findAll() {
+        List<Dept> deptList = deptMapper.findAll();
+        return deptList;
+    }
+
+    @Override
+    public void deleteById(Integer id) {
+        deptMapper.deleteById(id);
+    }
 }
