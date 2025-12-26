@@ -10,4 +10,8 @@ public interface DeptService {
     void deleteById(Integer id);
 
     void add(Dept dept);
+
+    void update(Dept dept);
+
+    Dept getInfoById(Integer id);
 }
