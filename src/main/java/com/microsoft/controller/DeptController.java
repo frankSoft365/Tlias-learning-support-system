@@ -3,9 +3,14 @@ package com.microsoft.controller;
 import com.microsoft.pojo.Dept;
 import com.microsoft.pojo.Result;
 import com.microsoft.service.DeptService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * 部门管理
+ */
+@Slf4j
 @RestController
 public class DeptController {
 
@@ -19,6 +24,7 @@ public class DeptController {
      */
     @GetMapping("/depts")
     public Result list() {
+        log.info("查询部门列表");
         return Result.success(deptService.findAll());
     }
 
@@ -29,7 +35,7 @@ public class DeptController {
      */
     @DeleteMapping("/depts")
     public Result delete(Integer id) {
-        System.out.println("要删除部门的id : " + id);
+        log.info("要删除的部门 : {}", id);
         deptService.deleteById(id);
         return Result.success();
     }
@@ -41,7 +47,7 @@ public class DeptController {
      */
     @PostMapping("/depts")
     public Result add(@RequestBody Dept dept) {
-        System.out.println("新增的部门的name : " + dept.getName());
+        log.info("新增的部门的name : {}", dept.getName());
         deptService.add(dept);
         return Result.success();
     }
@@ -53,6 +59,7 @@ public class DeptController {
      */
     @GetMapping("/depts/{id}")
     public Result getInfo(@PathVariable Integer id) {
+        log.info("查询回显部门id : {}", id);
         Dept dept = deptService.getInfoById(id);
         return Result.success(dept);
     }
@@ -64,6 +71,7 @@ public class DeptController {
      */
     @PutMapping("/depts")
     public Result update(@RequestBody Dept dept) {
+        log.info("修改部门");
         deptService.update(dept);
         return Result.success();
     }
