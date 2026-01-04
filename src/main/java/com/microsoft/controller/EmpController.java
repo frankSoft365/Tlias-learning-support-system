@@ -7,10 +7,7 @@ import com.microsoft.pojo.Result;
 import com.microsoft.service.EmpService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 
@@ -22,10 +19,39 @@ import java.time.LocalDate;
 public class EmpController {
     @Autowired
     private EmpService empService;
+
+    /**
+     * 前端传过来分页查询、条件查询的参数并将其封装成为empQueryParam对象
+     * @param empQueryParam
+     * @return
+     */
     @GetMapping("/emps")
     public Result page(EmpQueryParam empQueryParam) {
         log.info("分页查询，参数：{}", empQueryParam);
         PageResult<Emp> pageResult = empService.page(empQueryParam);
         return Result.success(pageResult);
+    }
+
+    /**
+     * 根据前端传来的json员工信息封装添加到数据库
+     * @param emp
+     * @return
+     */
+    @PostMapping("/emps")
+    public Result add(@RequestBody Emp emp) {
+        log.info("新增员工的信息：{}", emp);
+        empService.add(emp);
+        return Result.success();
+    }
+
+    /**
+     * 根据id删除员工
+     * @return
+     */
+    @DeleteMapping("/emps")
+    public Result delete(Integer id) {
+        log.info("要删除的员工id : {}", id);
+        empService.delete(id);
+        return Result.success();
     }
 }

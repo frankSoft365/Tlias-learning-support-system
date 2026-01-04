@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -25,4 +26,5 @@ public class Emp {
     private String password;            // 密码
     private Integer deptId;             // 关联的部门id
     private String deptName;            // 部门名称
+    private List<EmpExpr> exprList;     // 员工工作经历
 }
