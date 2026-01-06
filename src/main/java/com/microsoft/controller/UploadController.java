@@ -18,8 +18,14 @@ public class UploadController {
     @Autowired
     private AliyunOSSOperator aliyunOSSOperator;
 
+    /**
+     * 前端访问的文件上传接口，将前端传递的二进制文件上传到阿里云
+     * @param file
+     * @return 返回该文件在阿里云的对外url给前端
+     * @throws Exception
+     */
     @PostMapping("/upload")
-    public Result upload(MultipartFile file) throws IOException, ClientException {
+    public Result upload(MultipartFile file) throws Exception {
         log.info("传过来的文件名为：" + file.getOriginalFilename());
         // 上传到阿里云oss
         String url = aliyunOSSOperator.upload(file.getBytes(), file.getOriginalFilename());

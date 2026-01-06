@@ -4,7 +4,6 @@ import com.microsoft.pojo.Emp;
 import com.microsoft.pojo.EmpQueryParam;
 import org.apache.ibatis.annotations.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -30,8 +29,7 @@ public interface EmpMapper {
 
     /**
      * 根据id删除员工的基本信息
-     * @param id
+     * @param ids
      */
-    @Delete("delete from emp where id = #{id}")
-    void delete(Integer id);
+    void delete(List<Integer> ids);
 }

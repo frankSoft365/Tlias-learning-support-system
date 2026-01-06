@@ -9,6 +9,7 @@ import com.aliyun.oss.common.auth.EnvironmentVariableCredentialsProvider;
 import com.aliyun.oss.common.comm.SignVersion;
 import com.aliyun.oss.model.PutObjectRequest;
 import com.aliyuncs.exceptions.ClientException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.ByteArrayInputStream;
@@ -19,12 +20,23 @@ import java.util.UUID;
 @Component
 public class AliyunOSSOperator {
     // Endpoint 北京
-    private String endpoint = "https://oss-cn-beijing.aliyuncs.com";
+    @Value("${aliyun.oss.endpoint}")
+    private String endpoint;
     // Bucket名称 java-web-frank
-    private String bucketName = "java-web-frank";
-    // Bucket所在地域。北京 Region填写为cn-beijing。
-    String region = "cn-beijing";
+    @Value("${aliyun.oss.bucketName}")
+    private String bucketName;
+    // Bucket所在地域。北京 Region填写为cn-beijing
+    @Value("${aliyun.oss.region}")
+    private String region;
 
+    /**
+     * 根据阿里云javaSDK文件上传方法改写
+     * 通过文件本身的字节数组与文件原始名称将文件上传到阿里云OSS中并返回文件的url
+     * @param content 二进制文件字节数组
+     * @param objectName 文件原始名称 如 001.jpg
+     * @return 该文件在阿里云OSS中的url
+     * @throws ClientException
+     */
     public String upload(byte[] content, String objectName) throws ClientException {
         // 从环境变量中获取访问凭证。运行本代码示例之前，请确保已设置环境变量OSS_ACCESS_KEY_ID和OSS_ACCESS_KEY_SECRET。
         EnvironmentVariableCredentialsProvider credentialsProvider = CredentialsProviderFactory.newEnvironmentVariableCredentialsProvider();
@@ -36,7 +48,6 @@ public class AliyunOSSOperator {
         String fileExtension = objectName.substring(objectName.lastIndexOf("."));
         // 获取包装后的新文件名
         String resultObjectName = dir + "/" + UUID.randomUUID() + fileExtension;
-
 
         // 创建OSSClient实例。
         // 当OSSClient实例不再使用时，调用shutdown方法以释放资源。
@@ -64,6 +75,7 @@ public class AliyunOSSOperator {
         } finally {
             ossClient.shutdown();
         }
+        // 将返回的url进行包装 规则是：原本的endpoint中连接"bucketName." 后接文件存放路径名：resultObjectName
         return endpoint.split("//")[0] + "//" + bucketName + "." + endpoint.split("//")[1] + "/" + resultObjectName;
     }
 }

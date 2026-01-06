@@ -4,7 +4,7 @@ import com.microsoft.pojo.Emp;
 import com.microsoft.pojo.EmpQueryParam;
 import com.microsoft.pojo.PageResult;
 
-import java.time.LocalDate;
+import java.util.List;
 
 public interface EmpService {
     /**
@@ -24,5 +24,5 @@ public interface EmpService {
      * 根据id删除员工
      * @param id
      */
-    void delete(Integer id);
+    void delete(List<Integer> id);
 }

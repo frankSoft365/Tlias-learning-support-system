@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * 员工管理
@@ -49,9 +51,9 @@ public class EmpController {
      * @return
      */
     @DeleteMapping("/emps")
-    public Result delete(Integer id) {
-        log.info("要删除的员工id : {}", id);
-        empService.delete(id);
+    public Result delete(@RequestParam List<Integer> ids) {
+        log.info("要删除的员工id : {}", ids);
+        empService.delete(ids);
         return Result.success();
     }
 }

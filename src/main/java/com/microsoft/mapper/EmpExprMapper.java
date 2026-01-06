@@ -19,8 +19,7 @@ public interface EmpExprMapper {
 
     /**
      * 根据id删除员工的工作经历
-     * @param id
+     * @param empIds
      */
-    @Delete("delete from emp_expr where emp_id = #{id}")
-    void delete(Integer id);
+    void delete(List<Integer> empIds);
 }

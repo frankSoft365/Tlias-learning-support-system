@@ -1,19 +1,27 @@
 spring:
   application:
     name: Tlias-learning-support-system
-  #数据库连接设置
+  # 数据库连接设置
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/tlias
     username: root
     password: 12345678
   servlet:
-    #文件上传大小配置
+    # 文件上传大小配置
     multipart:
       max-file-size: 2MB  #最大单个文件大小
       max-request-size: 100MB #最大请求文件总大小
-#mybatis配置
+# mybatis配置
 mybatis:
   configuration:
+    # sql语句上传后较为清晰的日志
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    # 查询字段下划线命名与驼峰命名自动转变封装
     map-underscore-to-camel-case: true
+# aliyun 配置
+aliyun:
+  oss:
+    endpoint: https://oss-cn-beijing.aliyuncs.com
+    bucketName: java-web-frank
+    region: cn-beijing

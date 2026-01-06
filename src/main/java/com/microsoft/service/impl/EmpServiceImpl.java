@@ -43,6 +43,7 @@ public class EmpServiceImpl implements EmpService {
      * 新增员工
      * @param emp
      */
+    // 指定这是一个事务 在任何异常throw时回滚 保证添加员工基本信息与员工工作经历数据的一致性
     @Transactional(rollbackFor = {Exception.class})
     @Override
     public void add(Emp emp) {
@@ -57,16 +58,21 @@ public class EmpServiceImpl implements EmpService {
         if (!CollectionUtils.isEmpty(exprList)) {
             // 给每个工作经历标注对应的员工id
             exprList.forEach(empExpr -> empExpr.setEmpId(emp.getId()));
+            // 批量添加员工工作经历
             empExprMapper.insertBatch(exprList);
         }
     }
 
+    /**
+     * 删除员工
+     * @param ids
+     */
     @Transactional(rollbackFor = {Exception.class})
     @Override
-    public void delete(Integer id) {
+    public void delete(List<Integer> ids) {
         // 根据id删除emp表中的员工
-        empMapper.delete(id);
+        empMapper.delete(ids);
         // 根据id删除emp_expr表中的员工工作经历
-        empExprMapper.delete(id);
+        empExprMapper.delete(ids);
     }
 }
