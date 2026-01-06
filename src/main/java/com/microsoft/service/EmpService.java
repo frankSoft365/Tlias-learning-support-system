@@ -25,4 +25,17 @@ public interface EmpService {
      * @param id
      */
     void delete(List<Integer> id);
+
+    /**
+     * 根据id查询回显员工基本信息和工作经历
+     * @param id
+     * @return
+     */
+    Emp getEmpInfo(Integer id);
+
+    /**
+     * 更改员工信息
+     * @param emp
+     */
+    void update(Emp emp);
 }

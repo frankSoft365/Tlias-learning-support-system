@@ -32,4 +32,19 @@ public interface EmpMapper {
      * @param ids
      */
     void delete(List<Integer> ids);
+
+    /**
+     * 根据id查询员工基本信息
+     * @param id
+     * @return
+     */
+    @Select("select id, username, name, gender, phone, job, salary, entry_time, image, dept_id from emp where id = #{id}")
+    Emp getInfoById(Integer id);
+
+    /**
+     * 更改员工信息 更新updateTime
+     * @param emp
+     */
+    @Update("update emp set username = #{username}, name = #{name}, gender = #{gender}, phone = #{phone}, job = #{job}, salary = #{salary}, entry_time = #{entryTime}, image = #{image}, update_time = #{updateTime}, dept_id = #{deptId} where id = #{id}")
+    void update(Emp emp);
 }

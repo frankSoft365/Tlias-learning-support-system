@@ -16,4 +16,16 @@
             #{empId}
         </foreach>
     </delete>
+    <insert id="upsert">
+        insert into emp_expr (id, begin, end, company, job, emp_id) values
+        <foreach collection="exprList" item="expr" separator=",">
+            (#{expr.id},#{expr.begin},#{expr.end},#{expr.company},#{expr.job}, #{expr.empId})
+        </foreach>
+        on duplicate key update
+        begin = values(begin),
+        end = values(end),
+        company = values(company),
+        job = values(job),
+        emp_id = values(emp_id)
+    </insert>
 </mapper>

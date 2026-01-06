@@ -9,8 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -54,6 +52,26 @@ public class EmpController {
     public Result delete(@RequestParam List<Integer> ids) {
         log.info("要删除的员工id : {}", ids);
         empService.delete(ids);
+        return Result.success();
+    }
+
+    /**
+     * 根据id查询回显员工的基本信息和工作经历
+     */
+    @GetMapping("/emps/{id}")
+    public Result getEmpInfo(@PathVariable Integer id) {
+        log.info("要查询回显的员工id : {}", id);
+        Emp emp = empService.getEmpInfo(id);
+        return Result.success(emp);
+    }
+
+    /**
+     * 用新的信息更新员工信息
+     */
+    @PutMapping("/emps")
+    public Result update(@RequestBody Emp emp) {
+        log.info("更改员工信息 : {}", emp);
+        empService.update(emp);
         return Result.success();
     }
 }
