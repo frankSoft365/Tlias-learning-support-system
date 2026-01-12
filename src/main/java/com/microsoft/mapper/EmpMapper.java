@@ -2,9 +2,11 @@ package com.microsoft.mapper;
 
 import com.microsoft.pojo.Emp;
 import com.microsoft.pojo.EmpQueryParam;
+import com.microsoft.pojo.JobOption;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 员工查询
@@ -34,17 +36,21 @@ public interface EmpMapper {
     void delete(List<Integer> ids);
 
     /**
-     * 根据id查询员工基本信息
+     * 根据id查询员工基本信息和工作经历
      * @param id
      * @return
      */
-    @Select("select id, username, name, gender, phone, job, salary, entry_time, image, dept_id from emp where id = #{id}")
     Emp getInfoById(Integer id);
 
     /**
      * 更改员工信息 更新updateTime
      * @param emp
      */
-    @Update("update emp set username = #{username}, name = #{name}, gender = #{gender}, phone = #{phone}, job = #{job}, salary = #{salary}, entry_time = #{entryTime}, image = #{image}, update_time = #{updateTime}, dept_id = #{deptId} where id = #{id}")
     void update(Emp emp);
+
+    /**
+     * 查询员工职位数量
+     * @return
+     */
+    List<JobOption> countEmpJobData();
 }

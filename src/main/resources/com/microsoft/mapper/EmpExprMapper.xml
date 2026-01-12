@@ -3,6 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.microsoft.mapper.EmpExprMapper">
+    <!-- 批量添加工作经历 -->
     <insert id="insertBatch" >
         insert into emp_expr(begin, end, company, job, emp_id) values
         <!-- 动态sql 根据工作经历的数量调整添加的行数 -->
@@ -10,22 +11,12 @@
             (#{expr.begin}, #{expr.end}, #{expr.company}, #{expr.job}, #{expr.empId})
         </foreach>
     </insert>
+    <!-- 批量删除工作经历 -->
     <delete id="delete">
         delete from emp_expr where emp_id in
+        <!-- 遍历id列表 -->
         <foreach collection="empIds" item="empId" separator="," open="(" close=")">
             #{empId}
         </foreach>
     </delete>
-    <insert id="upsert">
-        insert into emp_expr (id, begin, end, company, job, emp_id) values
-        <foreach collection="exprList" item="expr" separator=",">
-            (#{expr.id},#{expr.begin},#{expr.end},#{expr.company},#{expr.job}, #{expr.empId})
-        </foreach>
-        on duplicate key update
-        begin = values(begin),
-        end = values(end),
-        company = values(company),
-        job = values(job),
-        emp_id = values(emp_id)
-    </insert>
 </mapper>
