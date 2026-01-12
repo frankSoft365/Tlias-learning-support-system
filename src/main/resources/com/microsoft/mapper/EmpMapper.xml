@@ -99,4 +99,8 @@
         group by job
         order by num;
     </select>
+    <!-- 员工性别统计 -->
+    <select id="countEmpGenderData" resultType="com.microsoft.pojo.GenderOption">
+        select count(*) as value, (case when gender = 1 then '男性员工' when gender = 2 then '女性员工' end ) name from emp group by gender;
+    </select>
 </mapper>

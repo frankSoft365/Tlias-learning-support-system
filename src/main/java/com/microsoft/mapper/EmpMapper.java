@@ -2,6 +2,7 @@ package com.microsoft.mapper;
 
 import com.microsoft.pojo.Emp;
 import com.microsoft.pojo.EmpQueryParam;
+import com.microsoft.pojo.GenderOption;
 import com.microsoft.pojo.JobOption;
 import org.apache.ibatis.annotations.*;
 
@@ -53,4 +54,10 @@ public interface EmpMapper {
      * @return
      */
     List<JobOption> countEmpJobData();
+
+    /**
+     * 员工性别统计
+     * @return
+     */
+    List<GenderOption> countEmpGenderData();
 }

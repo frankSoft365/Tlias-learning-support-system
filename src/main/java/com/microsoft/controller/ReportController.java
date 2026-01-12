@@ -1,5 +1,6 @@
 package com.microsoft.controller;
 
+import com.microsoft.pojo.GenderOption;
 import com.microsoft.pojo.JobOption;
 import com.microsoft.pojo.Result;
 import com.microsoft.service.ReportService;
@@ -27,6 +28,17 @@ public class ReportController {
     public Result getEmpJobData() {
         log.info("查询员工职位数量");
         List<JobOption> list = reportService.getEmpJobData();
+        return Result.success(list);
+    }
+
+    /**
+     * 员工性别统计
+     * @return
+     */
+    @GetMapping("/empGenderData")
+    public Result getEmpGenderData() {
+        log.info("员工性别统计");
+        List<GenderOption> list = reportService.getEmpGenderData();
         return Result.success(list);
     }
 }
