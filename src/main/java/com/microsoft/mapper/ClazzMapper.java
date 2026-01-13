@@ -12,4 +12,10 @@ public interface ClazzMapper {
      * 获取班级列表
      */
     List<Clazz> list(ClazzQueryParam clazzQueryParam);
+
+    /**
+     * 新增班级
+     * @param clazz
+     */
+    void insert(Clazz clazz);
 }

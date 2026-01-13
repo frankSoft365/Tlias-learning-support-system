@@ -11,4 +11,10 @@ public interface ClazzService {
      * @return
      */
     PageResult<Clazz> getList(ClazzQueryParam clazzQueryParam);
+
+    /**
+     * 新增班级
+     * @param clazz
+     */
+    void add(Clazz clazz);
 }

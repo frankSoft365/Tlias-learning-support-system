@@ -8,6 +8,8 @@ import com.microsoft.service.ClazzService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
@@ -26,5 +28,17 @@ public class ClazzController {
         log.info("班级列表查询");
         PageResult<Clazz> result = clazzService.getList(clazzQueryParam);
         return Result.success(result);
+    }
+
+    /**
+     * 新增班级
+     * @param clazz
+     * @return
+     */
+    @PostMapping("/clazzs")
+    public Result add(@RequestBody Clazz clazz) {
+        log.info("新增班级");
+        clazzService.add(clazz);
+        return Result.success();
     }
 }

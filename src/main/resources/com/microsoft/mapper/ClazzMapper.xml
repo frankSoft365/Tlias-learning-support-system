@@ -9,7 +9,7 @@
         from clazz c left join emp e on c.master_id = e.id
         <where>
             <if test="name != null and name != ''">
-                c.name = #{name}
+                c.name like concat('%', #{name}, '%')
             </if>
             <if test="begin != null and end != null">
                 and c.end_date between #{begin} and #{end}
@@ -17,4 +17,8 @@
         </where>
         order by c.update_time desc
     </select>
+    <insert id="insert">
+        insert into clazz (name, room, begin_date, end_date, master_id, subject, create_time, update_time)
+        VALUES (#{name}, #{room}, #{beginDate}, #{endDate}, #{masterId}, #{subject}, #{createTime}, #{updateTime})
+    </insert>
 </mapper>
