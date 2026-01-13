@@ -2,8 +2,6 @@ package com.microsoft.mapper;
 
 import com.microsoft.pojo.Emp;
 import com.microsoft.pojo.EmpQueryParam;
-import com.microsoft.pojo.GenderOption;
-import com.microsoft.pojo.JobOption;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -53,11 +51,20 @@ public interface EmpMapper {
      * 查询员工职位数量
      * @return
      */
-    List<JobOption> countEmpJobData();
+    List<Map<String, Object>> countEmpJobData();
 
     /**
      * 员工性别统计
+     * 为了不定义一个实体类 用map集合封装
+     * 每个map集合 : {<"name" : "男性员工">, <"value" : "11"> }
+     *              {<"name" : "女性员工">, <"value" : "4"> }
      * @return
      */
-    List<GenderOption> countEmpGenderData();
+    List<Map<String, Object>> countEmpGenderData();
+
+    /**
+     * 查询所有员工
+     * @return
+     */
+    List<Emp> getAllEmp();
 }

@@ -34,6 +34,7 @@ public class EmpServiceImpl implements EmpService {
      */
     @Override
     public PageResult<Emp> page(EmpQueryParam empQueryParam) {
+        // 将页码、每页数据数量交给PageHelper，他会自动生成查询总列表数量和分页的sql语句
         PageHelper.startPage(empQueryParam.getPage(), empQueryParam.getPageSize());
         List<Emp> rows = empMapper.list(empQueryParam);
         Page<Emp> p = (Page<Emp>) rows;
@@ -108,5 +109,14 @@ public class EmpServiceImpl implements EmpService {
             exprList.forEach(empExpr -> empExpr.setEmpId(emp.getId()));
             empExprMapper.insertBatch(exprList);
         }
+    }
+
+    /**
+     * 查询所有员工
+     * @return
+     */
+    @Override
+    public List<Emp> list() {
+        return empMapper.getAllEmp();
     }
 }

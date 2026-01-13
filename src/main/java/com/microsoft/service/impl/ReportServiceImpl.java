@@ -1,13 +1,12 @@
 package com.microsoft.service.impl;
 
 import com.microsoft.mapper.EmpMapper;
-import com.microsoft.pojo.GenderOption;
-import com.microsoft.pojo.JobOption;
 import com.microsoft.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ReportServiceImpl implements ReportService {
@@ -19,9 +18,8 @@ public class ReportServiceImpl implements ReportService {
      * @return JobOption
      */
     @Override
-    public List<JobOption> getEmpJobData() {
-        List<JobOption> jobOptions = empMapper.countEmpJobData();
-        return jobOptions;
+    public List<Map<String, Object>> getEmpJobData() {
+        return empMapper.countEmpJobData();
     }
 
     /**
@@ -29,8 +27,7 @@ public class ReportServiceImpl implements ReportService {
      * @return
      */
     @Override
-    public List<GenderOption> getEmpGenderData() {
-        List<GenderOption> list = empMapper.countEmpGenderData();
-        return list;
+    public List<Map<String, Object>> getEmpGenderData() {
+        return empMapper.countEmpGenderData();
     }
 }

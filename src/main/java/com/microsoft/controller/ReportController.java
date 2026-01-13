@@ -1,7 +1,5 @@
 package com.microsoft.controller;
 
-import com.microsoft.pojo.GenderOption;
-import com.microsoft.pojo.JobOption;
 import com.microsoft.pojo.Result;
 import com.microsoft.service.ReportService;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RequestMapping("/report")
@@ -27,7 +26,7 @@ public class ReportController {
     @GetMapping("/empJobData")
     public Result getEmpJobData() {
         log.info("查询员工职位数量");
-        List<JobOption> list = reportService.getEmpJobData();
+        List<Map<String, Object>> list = reportService.getEmpJobData();
         return Result.success(list);
     }
 
@@ -38,7 +37,7 @@ public class ReportController {
     @GetMapping("/empGenderData")
     public Result getEmpGenderData() {
         log.info("员工性别统计");
-        List<GenderOption> list = reportService.getEmpGenderData();
+        List<Map<String, Object>> list = reportService.getEmpGenderData();
         return Result.success(list);
     }
 }

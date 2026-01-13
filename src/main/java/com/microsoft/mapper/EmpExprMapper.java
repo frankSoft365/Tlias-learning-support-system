@@ -2,7 +2,6 @@ package com.microsoft.mapper;
 
 import com.microsoft.pojo.EmpExpr;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 

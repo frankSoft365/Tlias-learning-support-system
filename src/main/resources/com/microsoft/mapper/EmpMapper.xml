@@ -86,7 +86,7 @@
         where id = #{id}
     </update>
     <!-- 查询员工职位数量 -->
-    <select id="countEmpJobData" resultType="com.microsoft.pojo.JobOption">
+    <select id="countEmpJobData" resultType="java.util.Map">
         select count(*)              as num,
                (case
                     when job = 1 then '班主任'
@@ -100,7 +100,11 @@
         order by num;
     </select>
     <!-- 员工性别统计 -->
-    <select id="countEmpGenderData" resultType="com.microsoft.pojo.GenderOption">
-        select count(*) as value, (case when gender = 1 then '男性员工' when gender = 2 then '女性员工' end ) name from emp group by gender;
+    <select id="countEmpGenderData" resultType="java.util.Map">
+        select count(*) as value, if(gender = 1, '男性员工', '女性员工') as name from emp group by gender;
+    </select>
+    <!-- 查询所有员工 -->
+    <select id="getAllEmp" resultType="com.microsoft.pojo.Emp">
+        select * from emp
     </select>
 </mapper>
