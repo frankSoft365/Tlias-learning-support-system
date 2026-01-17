@@ -17,8 +17,39 @@
         </where>
         order by c.update_time desc
     </select>
+    <!-- 添加班级 -->
     <insert id="insert">
         insert into clazz (name, room, begin_date, end_date, master_id, subject, create_time, update_time)
         VALUES (#{name}, #{room}, #{beginDate}, #{endDate}, #{masterId}, #{subject}, #{createTime}, #{updateTime})
     </insert>
+    <!--根据ID查询班级信息-->
+    <select id="getById" resultType="com.microsoft.pojo.Clazz">
+        select id, name, room, begin_date, end_date, master_id, subject, create_time, update_time from clazz where id = #{id}
+    </select>
+    <!--更改班级信息-->
+    <update id="update">
+        update clazz
+        <set>
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="room != null and room != ''">room = #{room},</if>
+            <if test="beginDate != null">begin_date = #{beginDate},</if>
+            <if test="endDate != null">end_date = #{endDate},</if>
+            <if test="masterId != null">master_id = #{masterId},</if>
+            <if test="subject != null">subject = #{subject},</if>
+            <if test="updateTime != null">update_time = #{updateTime}</if>
+        </set>
+        where id = #{id}
+    </update>
+    <!--根据班级id查询对应班级有多少名学生-->
+    <select id="countStudentInClazz" resultType="java.lang.Integer">
+        select count(*) from student where clazz_id = #{id}
+    </select>
+    <!--根据id删除班级-->
+    <delete id="delete">
+        delete from clazz where id = #{id}
+    </delete>
+    <!--查询所有班级-->
+    <select id="getAllClazz" resultType="com.microsoft.pojo.Clazz">
+        select id, name, room, begin_date, end_date, master_id, subject, create_time, update_time from clazz
+    </select>
 </mapper>

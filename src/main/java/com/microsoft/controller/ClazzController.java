@@ -7,10 +7,9 @@ import com.microsoft.pojo.Result;
 import com.microsoft.service.ClazzService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -40,5 +39,51 @@ public class ClazzController {
         log.info("新增班级");
         clazzService.add(clazz);
         return Result.success();
+    }
+
+    /**
+     * 根据id查询班级信息
+     * @return
+     */
+    @GetMapping("/clazzs/{id}")
+    public Result getById(@PathVariable Integer id) {
+        log.info("根据id : {} 查询班级信息", id);
+        Clazz clazz = clazzService.getById(id);
+        return Result.success(clazz);
+    }
+
+    /**
+     * 更改班级信息
+     * @param clazz
+     * @return
+     */
+    @PutMapping("/clazzs")
+    public Result update(@RequestBody Clazz clazz) {
+        log.info("更改班级信息");
+        clazzService.update(clazz);
+        return Result.success();
+    }
+
+    /**
+     * 根据id删除班级
+     * @param id
+     * @return
+     */
+    @DeleteMapping("/clazzs/{id}")
+    public Result delete(@PathVariable Integer id) {
+        log.info("根据id删除班级");
+        clazzService.delete(id);
+        return Result.success();
+    }
+
+    /**
+     * 查询所有班级
+     * @return
+     */
+    @GetMapping("/clazzs/list")
+    public Result list() {
+        log.info("查询所有班级");
+        List<Clazz> list = clazzService.list();
+        return Result.success(list);
     }
 }

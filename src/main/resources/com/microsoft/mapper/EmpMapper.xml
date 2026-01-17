@@ -105,6 +105,6 @@
     </select>
     <!-- 查询所有员工 -->
     <select id="getAllEmp" resultType="com.microsoft.pojo.Emp">
-        select * from emp
+        select id, username, name, gender, phone, job, salary, entry_time, image, create_time, update_time, password, dept_id from emp
     </select>
 </mapper>

@@ -30,4 +30,10 @@ public class GlobalExceptionHandler {
         return Result.error( arr[2] + "已存在");
     }
 
+    @ExceptionHandler
+    public Result handleClazzHasStudentsCannotDeleteException(ClazzHasStudentsCannotDeleteException e) {
+        log.error("班级已存在学生而不可删除错误", e);
+        return Result.error(e.getMessage());
+    }
+
 }

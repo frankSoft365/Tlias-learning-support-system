@@ -2,6 +2,7 @@ package com.microsoft.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.microsoft.exception.ClazzHasStudentsCannotDeleteException;
 import com.microsoft.mapper.ClazzMapper;
 import com.microsoft.pojo.Clazz;
 import com.microsoft.pojo.ClazzQueryParam;
@@ -51,5 +52,50 @@ public class ClazzServiceImpl implements ClazzService {
         clazz.setCreateTime(LocalDateTime.now());
         clazz.setUpdateTime(LocalDateTime.now());
         clazzMapper.insert(clazz);
+    }
+
+    /**
+     * 根据ID查询班级信息
+     * @param id
+     * @return
+     */
+    @Override
+    public Clazz getById(Integer id) {
+        return clazzMapper.getById(id);
+    }
+
+    /**
+     * 更改班级信息
+     * @param clazz
+     */
+    @Override
+    public void update(Clazz clazz) {
+        clazz.setUpdateTime(LocalDateTime.now());
+        clazzMapper.update(clazz);
+    }
+
+    /**
+     * 根据id删除班级
+     * @param id
+     */
+    @Override
+    public void delete(Integer id) {
+        // 如果该班级下面有学员 则不能删除该班级
+        Integer count = clazzMapper.countStudentInClazz(id);
+        if (count > 0) {
+            throw new ClazzHasStudentsCannotDeleteException("对不起, 该班级下有学生, 不能直接删除");
+        } else {
+            // 否则 删除班级
+            clazzMapper.delete(id);
+        }
+    }
+
+    /**
+     * 查询所有班级
+     * @return
+     */
+    @Override
+    public List<Clazz> list() {
+        return clazzMapper.getAllClazz();
     }
 }
