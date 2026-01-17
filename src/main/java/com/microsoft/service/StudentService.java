@@ -12,4 +12,10 @@ public interface StudentService {
      * @return
      */
     PageResult<Student> page(StudentQueryParam studentQueryParam);
+
+    /**
+     * 新增学员
+     * @param student
+     */
+    void add(Student student);
 }

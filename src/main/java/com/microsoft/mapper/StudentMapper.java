@@ -14,4 +14,10 @@ public interface StudentMapper {
      * @return
      */
     List<Student> page(StudentQueryParam studentQueryParam);
+
+    /**
+     * 新增学员
+     * @param student
+     */
+    void insert(Student student);
 }

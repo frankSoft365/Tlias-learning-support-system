@@ -10,6 +10,7 @@ import com.microsoft.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -27,5 +28,16 @@ public class StudentServiceImpl implements StudentService {
         List<Student> list = studentMapper.page(studentQueryParam);
         Page<Student> p = (Page<Student>) list;
         return new PageResult<>(p.getTotal(), p.getResult());
+    }
+
+    /**
+     * 新增学员
+     * @param student
+     */
+    @Override
+    public void add(Student student) {
+        student.setCreateTime(LocalDateTime.now());
+        student.setUpdateTime(LocalDateTime.now());
+        studentMapper.insert(student);
     }
 }

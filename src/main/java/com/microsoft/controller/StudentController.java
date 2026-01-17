@@ -7,8 +7,7 @@ import com.microsoft.pojo.StudentQueryParam;
 import com.microsoft.service.StudentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
@@ -25,5 +24,17 @@ public class StudentController {
         log.info("学员列表查询");
         PageResult<Student> list = studentService.page(studentQueryParam);
         return Result.success(list);
+    }
+
+    /**
+     * 新增学员
+     * @param student
+     * @return
+     */
+    @PostMapping("/students")
+    public Result add(@RequestBody Student student) {
+        log.info("新增学员");
+        studentService.add(student);
+        return Result.success();
     }
 }
