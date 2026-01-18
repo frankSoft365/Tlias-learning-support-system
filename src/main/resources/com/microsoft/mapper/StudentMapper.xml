@@ -51,4 +51,29 @@
             #{id}
         </foreach>
     </delete>
+    <!--班级人数统计-->
+    <select id="countStudentInClazz" resultType="java.util.Map">
+        select c.name            as clazz,
+               count(s.clazz_id) as num
+        from clazz c
+                 left join student s
+                           on c.id = s.clazz_id
+        group by c.id;
+    </select>
+    <!--学员学历统计-->
+    <select id="countStuDegree" resultType="java.util.Map">
+        select count(*) as value,
+               (case degree
+                    when 1 then '初中'
+                    when 2 then '高中'
+                    when 3 then '大专'
+                    when 4 then '本科'
+                    when 5 then '硕士'
+                    when 6 then '博士'
+                    else '其他'
+                   end
+                   )    as name
+        from student
+        group by degree
+    </select>
 </mapper>

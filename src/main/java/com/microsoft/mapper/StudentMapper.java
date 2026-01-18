@@ -5,6 +5,7 @@ import com.microsoft.pojo.StudentQueryParam;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface StudentMapper {
@@ -39,4 +40,16 @@ public interface StudentMapper {
      * @param ids
      */
     void delete(List<Integer> ids);
+
+    /**
+     * 统计班级人数
+     * @return
+     */
+    List<Map<String, Object>> countStudentInClazz();
+
+    /**
+     * 学员学历统计
+     * @return
+     */
+    List<Map<String, Object>> countStuDegree();
 }
