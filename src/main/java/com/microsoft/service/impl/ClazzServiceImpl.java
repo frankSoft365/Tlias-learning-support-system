@@ -19,8 +19,10 @@ import java.util.List;
 public class ClazzServiceImpl implements ClazzService {
     @Autowired
     private ClazzMapper clazzMapper;
+
     /**
      * 获取班级列表
+     *
      * @param clazzQueryParam
      * @return
      */
@@ -45,6 +47,7 @@ public class ClazzServiceImpl implements ClazzService {
 
     /**
      * 新增班级
+     *
      * @param clazz
      */
     @Override
@@ -56,6 +59,7 @@ public class ClazzServiceImpl implements ClazzService {
 
     /**
      * 根据ID查询班级信息
+     *
      * @param id
      * @return
      */
@@ -66,6 +70,7 @@ public class ClazzServiceImpl implements ClazzService {
 
     /**
      * 更改班级信息
+     *
      * @param clazz
      */
     @Override
@@ -76,6 +81,7 @@ public class ClazzServiceImpl implements ClazzService {
 
     /**
      * 根据id删除班级
+     *
      * @param id
      */
     @Override
@@ -84,14 +90,14 @@ public class ClazzServiceImpl implements ClazzService {
         Integer count = clazzMapper.countStudentInClazz(id);
         if (count > 0) {
             throw new ClazzHasStudentsCannotDeleteException("对不起, 该班级下有学生, 不能直接删除");
-        } else {
-            // 否则 删除班级
-            clazzMapper.delete(id);
         }
+        // 否则 删除班级
+        clazzMapper.delete(id);
     }
 
     /**
      * 查询所有班级
+     *
      * @return
      */
     @Override

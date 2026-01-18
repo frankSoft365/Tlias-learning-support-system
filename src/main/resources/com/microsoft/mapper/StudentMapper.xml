@@ -27,7 +27,7 @@
     <update id="update">
         update student
         <set>
-        <!--对象中的10个字段 + update_time-->
+        <!--12个字段 + update_time 不包含create_time和id-->
             <if test="name != null and name != ''">name = #{name},</if>
             <if test="no != null and no != ''">no = #{no},</if>
             <if test="gender != null">gender = #{gender},</if>
@@ -38,6 +38,8 @@
             <if test="degree != null">degree = #{degree},</if>
             <if test="graduationDate != null">graduation_date = #{graduationDate},</if>
             <if test="clazzId != null">clazz_id = #{clazzId},</if>
+            <if test="violationCount != null">violation_count = #{violationCount},</if>
+            <if test="violationScore != null">violation_score = #{violationScore},</if>
             <if test="updateTime != null">update_time = #{updateTime}</if>
         </set>
         where id = #{id}

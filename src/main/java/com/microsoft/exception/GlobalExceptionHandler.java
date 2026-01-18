@@ -30,9 +30,25 @@ public class GlobalExceptionHandler {
         return Result.error( arr[2] + "已存在");
     }
 
+    /**
+     * 当班级存在学员时，该班级不能被删除
+     * @param e
+     * @return
+     */
     @ExceptionHandler
     public Result handleClazzHasStudentsCannotDeleteException(ClazzHasStudentsCannotDeleteException e) {
         log.error("班级已存在学生而不可删除错误", e);
+        return Result.error(e.getMessage());
+    }
+
+    /**
+     * 当违纪次数达到最大值时，不能继续增加违纪次数，违纪扣分处理被阻止
+     * @param e
+     * @return
+     */
+    @ExceptionHandler
+    public Result handleMaxValueExceededException(MaxValueExceededException e) {
+        log.error("数值达到最大限度无法继续增加异常", e);
         return Result.error(e.getMessage());
     }
 
