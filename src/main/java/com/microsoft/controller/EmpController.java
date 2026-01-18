@@ -49,6 +49,7 @@ public class EmpController {
      * @return
      */
     @DeleteMapping("/emps")
+    // 当使用list集合接收参数时要添加注解@RequestParam
     public Result delete(@RequestParam List<Integer> ids) {
         log.info("要删除的员工id : {}", ids);
         empService.delete(ids);

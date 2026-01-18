@@ -20,4 +20,23 @@ public interface StudentMapper {
      * @param student
      */
     void insert(Student student);
+
+    /**
+     * 根据id查询学员信息
+     * @param id
+     * @return
+     */
+    Student getInfoById(Integer id);
+
+    /**
+     * 修改学员
+     * @param student
+     */
+    void update(Student student);
+
+    /**
+     * 根据id删除学员
+     * @param ids
+     */
+    void delete(List<Integer> ids);
 }

@@ -19,4 +19,34 @@
         insert into student (name, no, gender, phone, id_card, is_college, address, degree, graduation_date, clazz_id, create_time, update_time)
         VALUES (#{name}, #{no}, #{gender}, #{phone}, #{idCard}, #{isCollege},#{address},#{degree},#{graduationDate},#{clazzId}, #{createTime}, #{updateTime})
     </insert>
+    <!--根据id查询学员信息-->
+    <select id="getInfoById" resultType="com.microsoft.pojo.Student">
+        select id, name, no, gender, phone, id_card, is_college, address, degree, graduation_date, clazz_id, violation_count, violation_score, create_time, update_time from student where id = #{id}
+    </select>
+    <!--修改学员-->
+    <update id="update">
+        update student
+        <set>
+        <!--对象中的10个字段 + update_time-->
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="no != null and no != ''">no = #{no},</if>
+            <if test="gender != null">gender = #{gender},</if>
+            <if test="phone != null and phone != ''">phone = #{phone},</if>
+            <if test="idCard != null and idCard != ''">id_card = #{idCard},</if>
+            <if test="isCollege != null">is_college = #{isCollege},</if>
+            <if test="address != null and address != ''">address = #{address},</if>
+            <if test="degree != null">degree = #{degree},</if>
+            <if test="graduationDate != null">graduation_date = #{graduationDate},</if>
+            <if test="clazzId != null">clazz_id = #{clazzId},</if>
+            <if test="updateTime != null">update_time = #{updateTime}</if>
+        </set>
+        where id = #{id}
+    </update>
+    <!--根据id删除学员-->
+    <delete id="delete">
+        delete from student where id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
 </mapper>

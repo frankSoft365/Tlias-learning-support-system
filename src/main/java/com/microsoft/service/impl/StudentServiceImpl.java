@@ -40,4 +40,33 @@ public class StudentServiceImpl implements StudentService {
         student.setUpdateTime(LocalDateTime.now());
         studentMapper.insert(student);
     }
+
+    /**
+     * 根据id查询学员信息
+     * @param id
+     * @return
+     */
+    @Override
+    public Student getInfoById(Integer id) {
+        return studentMapper.getInfoById(id);
+    }
+
+    /**
+     * 修改学员
+     * @param student
+     */
+    @Override
+    public void update(Student student) {
+        student.setUpdateTime(LocalDateTime.now());
+        studentMapper.update(student);
+    }
+
+    /**
+     * 根据id删除学员 直接删除 无需考虑其他表的关联
+     * @param ids
+     */
+    @Override
+    public void delete(List<Integer> ids) {
+        studentMapper.delete(ids);
+    }
 }
