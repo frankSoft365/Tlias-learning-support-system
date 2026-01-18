@@ -2,12 +2,11 @@ package com.microsoft.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.microsoft.exception.DataNotFoundException;
+import com.microsoft.mapper.DeptMapper;
 import com.microsoft.mapper.EmpExprMapper;
 import com.microsoft.mapper.EmpMapper;
-import com.microsoft.pojo.Emp;
-import com.microsoft.pojo.EmpExpr;
-import com.microsoft.pojo.EmpQueryParam;
-import com.microsoft.pojo.PageResult;
+import com.microsoft.pojo.*;
 import com.microsoft.service.EmpService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +25,11 @@ public class EmpServiceImpl implements EmpService {
     private EmpMapper empMapper;
     @Autowired
     private EmpExprMapper empExprMapper;
+    @Autowired
+    private DeptMapper deptMapper;
 
     /**
      * 分页查询员工列表
-     * @param empQueryParam
-     * @return
      */
     @Override
     public PageResult<Emp> page(EmpQueryParam empQueryParam) {
@@ -43,7 +42,6 @@ public class EmpServiceImpl implements EmpService {
 
     /**
      * 新增员工
-     * @param emp
      */
     // 指定这是一个事务 在任何异常throw时回滚 保证添加员工基本信息与员工工作经历数据的一致性
     @Transactional(rollbackFor = {Exception.class})
@@ -67,7 +65,6 @@ public class EmpServiceImpl implements EmpService {
 
     /**
      * 删除员工
-     * @param ids
      */
     @Transactional(rollbackFor = {Exception.class})
     @Override
@@ -80,8 +77,6 @@ public class EmpServiceImpl implements EmpService {
 
     /**
      * 根据id查询员工的基本信息和工作经历
-     * @param id
-     * @return
      */
     @Override
     public Emp getEmpInfo(Integer id) {
@@ -90,11 +85,20 @@ public class EmpServiceImpl implements EmpService {
 
     /**
      * 更改员工信息
-     * @param emp
      */
     @Transactional(rollbackFor = {Exception.class})
     @Override
     public void update(Emp emp) {
+        // 检查该员工是否存在
+        Emp infoById1 = empMapper.getInfoById(emp.getId());
+        if (infoById1 == null) {
+            throw new DataNotFoundException("该员工已经不存在！不能进行修改！");
+        }
+        // 涉及修改部门 检查该部门是否存在
+        Dept infoById = deptMapper.getInfoById(emp.getDeptId());
+        if (infoById == null) {
+            throw new DataNotFoundException("你修改为的所属部门，该部门已经不存在！无法修改！");
+        }
         // 更改员工基本信息
         emp.setUpdateTime(LocalDateTime.now());
         empMapper.update(emp);

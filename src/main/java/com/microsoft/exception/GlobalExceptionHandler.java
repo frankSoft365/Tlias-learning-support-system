@@ -32,12 +32,13 @@ public class GlobalExceptionHandler {
 
     /**
      * 当班级存在学员时，该班级不能被删除
+     * 当部门存在员工时，该部门不能被删除
      * @param e
      * @return
      */
     @ExceptionHandler
-    public Result handleClazzHasStudentsCannotDeleteException(ClazzHasStudentsCannotDeleteException e) {
-        log.error("班级已存在学生而不可删除错误", e);
+    public Result handleDataHasAssociatedRecordsException(DataHasAssociatedRecordsException e) {
+        log.error("数据存在关联记录无法执行删除异常", e);
         return Result.error(e.getMessage());
     }
 

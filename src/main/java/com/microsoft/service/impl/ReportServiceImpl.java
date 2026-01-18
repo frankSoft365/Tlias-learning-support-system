@@ -3,7 +3,6 @@ package com.microsoft.service.impl;
 import com.microsoft.mapper.EmpMapper;
 import com.microsoft.mapper.StudentMapper;
 import com.microsoft.service.ReportService;
-import com.microsoft.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +28,6 @@ public class ReportServiceImpl implements ReportService {
 
     /**
      * 员工性别统计
-     * @return
      */
     @Override
     public List<Map<String, Object>> getEmpGenderData() {
@@ -38,7 +36,6 @@ public class ReportServiceImpl implements ReportService {
 
     /**
      * 班级人数统计
-     * @return
      */
     @Override
     public List<Map<String, Object>> getStuCountData() {
@@ -47,7 +44,6 @@ public class ReportServiceImpl implements ReportService {
 
     /**
      * 学员学历统计
-     * @return
      */
     @Override
     public List<Map<String, Object>> getStuDegreeData() {

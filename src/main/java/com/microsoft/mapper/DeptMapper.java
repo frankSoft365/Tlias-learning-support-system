@@ -23,6 +23,9 @@ public interface DeptMapper {
     @Update("update dept set name = #{name}, update_time = #{updateTime} where id = #{id}")
     void update(Dept dept);
 
+    /**
+     *根据ID查询部门信息
+     */
     @Select("select id, name, dept.create_time, dept.update_time from dept where id = #{id}")
     Dept getInfoById(Integer id);
 }

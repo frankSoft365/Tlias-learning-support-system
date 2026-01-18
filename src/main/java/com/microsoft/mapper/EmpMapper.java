@@ -67,4 +67,9 @@ public interface EmpMapper {
      * @return
      */
     List<Emp> getAllEmp();
+
+    /**
+     * 根据部门id查询该部门下员工的数量
+     */
+    Integer countEmpInDept(Integer deptId);
 }
