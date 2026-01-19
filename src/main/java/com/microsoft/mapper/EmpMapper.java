@@ -72,4 +72,9 @@ public interface EmpMapper {
      * 根据部门id查询该部门下员工的数量
      */
     Integer countEmpInDept(Integer deptId);
+
+    /**
+     * 根据用户名和密码查询员工信息
+     */
+    Emp selectByUsernameAndPassword(Emp emp);
 }

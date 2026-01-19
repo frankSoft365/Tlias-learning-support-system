@@ -19,8 +19,6 @@ public class ClazzController {
 
     /**
      * 获取班级列表
-     * @param clazzQueryParam
-     * @return
      */
     @GetMapping("/clazzs")
     public Result getClazzList(ClazzQueryParam clazzQueryParam) {
@@ -31,8 +29,6 @@ public class ClazzController {
 
     /**
      * 新增班级
-     * @param clazz
-     * @return
      */
     @PostMapping("/clazzs")
     public Result add(@RequestBody Clazz clazz) {
@@ -43,7 +39,6 @@ public class ClazzController {
 
     /**
      * 根据id查询班级信息
-     * @return
      */
     @GetMapping("/clazzs/{id}")
     public Result getById(@PathVariable Integer id) {
@@ -54,8 +49,6 @@ public class ClazzController {
 
     /**
      * 更改班级信息
-     * @param clazz
-     * @return
      */
     @PutMapping("/clazzs")
     public Result update(@RequestBody Clazz clazz) {
@@ -66,8 +59,6 @@ public class ClazzController {
 
     /**
      * 根据id删除班级
-     * @param id
-     * @return
      */
     @DeleteMapping("/clazzs/{id}")
     public Result delete(@PathVariable Integer id) {
@@ -78,7 +69,6 @@ public class ClazzController {
 
     /**
      * 查询所有班级
-     * @return
      */
     @GetMapping("/clazzs/list")
     public Result list() {

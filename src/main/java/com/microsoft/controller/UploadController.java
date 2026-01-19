@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Objects;
+
 @Slf4j
 @RestController
 public class UploadController {
@@ -25,7 +27,7 @@ public class UploadController {
     public Result upload(MultipartFile file) throws Exception {
         log.info("传过来的文件名为：" + file.getOriginalFilename());
         // 上传到阿里云oss
-        String url = aliyunOSSOperator.upload(file.getBytes(), file.getOriginalFilename());
+        String url = aliyunOSSOperator.upload(file.getBytes(), Objects.requireNonNull(file.getOriginalFilename()));
         log.info("图片的url：" + url);
         return Result.success(url);
     }

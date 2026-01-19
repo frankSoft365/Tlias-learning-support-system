@@ -2,6 +2,7 @@ package com.microsoft.service;
 
 import com.microsoft.pojo.Emp;
 import com.microsoft.pojo.EmpQueryParam;
+import com.microsoft.pojo.LoginInfo;
 import com.microsoft.pojo.PageResult;
 
 import java.util.List;
@@ -44,4 +45,9 @@ public interface EmpService {
      * @return
      */
     List<Emp> list();
+
+    /**
+     * 员工登录校验
+     */
+    LoginInfo login(Emp emp);
 }

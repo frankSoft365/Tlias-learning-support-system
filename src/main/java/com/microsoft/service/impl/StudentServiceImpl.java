@@ -95,7 +95,7 @@ public class StudentServiceImpl implements StudentService {
         // 违纪次数加1
         // 获取违纪次数
         Short violationCount = stuInfo.getViolationCount();
-        if (violationCount == Short.MAX_VALUE) {
+        if (violationCount == 255) {
             // 抛出数值达到最大限度无法继续增加异常
             throw new MaxValueExceededException("不能再增加违纪次数！");
         }
@@ -104,7 +104,7 @@ public class StudentServiceImpl implements StudentService {
         stuInfo.setViolationCount(violationCount);
         // 违纪扣分增加
         Short violationScore = stuInfo.getViolationScore();
-        if (violationScore + score > Short.MAX_VALUE) {
+        if (violationScore + score > 255) {
             throw new MaxValueExceededException("违纪扣分过大，不能再增加违纪扣分！");
         }
         violationScore = (short) (violationScore + score);

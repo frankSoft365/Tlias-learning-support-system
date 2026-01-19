@@ -21,7 +21,6 @@ public class ReportController {
 
     /**
      * 查询员工职位数量
-     * @return
      */
     @GetMapping("/empJobData")
     public Result getEmpJobData() {
@@ -32,7 +31,6 @@ public class ReportController {
 
     /**
      * 员工性别统计
-     * @return
      */
     @GetMapping("/empGenderData")
     public Result getEmpGenderData() {
@@ -43,7 +41,6 @@ public class ReportController {
 
     /**
      * 班级人数统计
-     * @return
      */
     @GetMapping("/studentCountData")
     public Result getStuCountData() {
@@ -54,7 +51,6 @@ public class ReportController {
 
     /**
      * 学员学历统计
-     * @return
      */
     @GetMapping("/studentDegreeData")
     public Result getStudentDegreeData() {

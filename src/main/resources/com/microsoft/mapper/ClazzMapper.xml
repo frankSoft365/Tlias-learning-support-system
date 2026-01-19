@@ -52,4 +52,8 @@
     <select id="getAllClazz" resultType="com.microsoft.pojo.Clazz">
         select id, name, room, begin_date, end_date, master_id, subject, create_time, update_time from clazz
     </select>
+    <!--根据班主任id查询班级-->
+    <select id="getByMasterId" resultType="java.lang.Integer">
+        select count(*) from clazz where master_id = #{masterId}
+    </select>
 </mapper>

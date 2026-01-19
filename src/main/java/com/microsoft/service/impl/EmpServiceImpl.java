@@ -2,12 +2,15 @@ package com.microsoft.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.microsoft.exception.DataHasAssociatedRecordsException;
 import com.microsoft.exception.DataNotFoundException;
+import com.microsoft.mapper.ClazzMapper;
 import com.microsoft.mapper.DeptMapper;
 import com.microsoft.mapper.EmpExprMapper;
 import com.microsoft.mapper.EmpMapper;
 import com.microsoft.pojo.*;
 import com.microsoft.service.EmpService;
+import com.microsoft.utils.JwtUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +19,9 @@ import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Service
@@ -27,6 +32,8 @@ public class EmpServiceImpl implements EmpService {
     private EmpExprMapper empExprMapper;
     @Autowired
     private DeptMapper deptMapper;
+    @Autowired
+    private ClazzMapper clazzMapper;
 
     /**
      * 分页查询员工列表
@@ -69,6 +76,13 @@ public class EmpServiceImpl implements EmpService {
     @Transactional(rollbackFor = {Exception.class})
     @Override
     public void delete(List<Integer> ids) {
+        // 检查是否有班级以该员工为班主任
+        ids.forEach(id -> {
+            Integer clazzCount = clazzMapper.getByMasterId(id);
+            if (clazzCount > 0) {
+                throw new DataHasAssociatedRecordsException("员工关联了" + clazzCount + "个班级，无法删除!");
+            }
+        });
         // 根据id删除emp表中的员工
         empMapper.delete(ids);
         // 根据id删除emp_expr表中的员工工作经历
@@ -117,10 +131,30 @@ public class EmpServiceImpl implements EmpService {
 
     /**
      * 查询所有员工
-     * @return
      */
     @Override
     public List<Emp> list() {
         return empMapper.getAllEmp();
+    }
+
+    /**
+     * 登录校验
+     */
+    @Override
+    public LoginInfo login(Emp emp) {
+        // 根据emp中的用户名和密码查询员工信息，查询到则返回emp对象，没有查询到则是null
+        Emp info = empMapper.selectByUsernameAndPassword(emp);
+        if (info != null) {
+            log.info("登录成功，用户信息：{}", info);
+            // 封装token信息
+            Map<String, Object> dataMap = new HashMap<>();
+            dataMap.put("id", info.getId());
+            dataMap.put("username", info.getUsername());
+            // 获取token
+            String token = JwtUtils.generateToken(dataMap);
+            // 封装到LoginInfo对象
+            return new LoginInfo(info.getId(), info.getUsername(), info.getName(), token);
+        }
+        return null;
     }
 }

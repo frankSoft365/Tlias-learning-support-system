@@ -50,4 +50,7 @@ public interface ClazzMapper {
      * @return
      */
     List<Clazz> getAllClazz();
+
+    // 根据班主任id查询班级
+    Integer getByMasterId(Integer masterId);
 }

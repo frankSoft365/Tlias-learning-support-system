@@ -18,8 +18,6 @@ public class StudentController {
     private StudentService studentService;
     /**
      * 学员列表查询
-     * @param studentQueryParam
-     * @return
      */
     @GetMapping("/students")
     public Result page(StudentQueryParam studentQueryParam) {
@@ -30,8 +28,6 @@ public class StudentController {
 
     /**
      * 新增学员
-     * @param student
-     * @return
      */
     @PostMapping("/students")
     public Result add(@RequestBody Student student) {
@@ -42,8 +38,6 @@ public class StudentController {
 
     /**
      * 根据id查询学员信息
-     * @param id
-     * @return
      */
     @GetMapping("/students/{id}")
     public Result getInfoById(@PathVariable Integer id) {
@@ -54,8 +48,6 @@ public class StudentController {
 
     /**
      * 修改学员
-     * @param student
-     * @return
      */
     @PutMapping("/students")
     public Result update(@RequestBody Student student) {
@@ -66,8 +58,6 @@ public class StudentController {
 
     /**
      * 根据id删除学员
-     * @param ids
-     * @return
      */
     @DeleteMapping("/students/{ids}")
     public Result delete(@PathVariable List<Integer> ids) {
@@ -78,7 +68,6 @@ public class StudentController {
 
     /**
      * 违纪处理
-     * @return
      */
     @PutMapping("/students/violation/{id}/{score}")
     public Result violationAction(@PathVariable Integer id, @PathVariable Integer score) {

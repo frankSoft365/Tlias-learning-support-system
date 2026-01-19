@@ -22,8 +22,6 @@ public class EmpController {
 
     /**
      * 前端传过来分页查询、条件查询的参数并将其封装成为empQueryParam对象
-     * @param empQueryParam
-     * @return
      */
     @GetMapping("/emps")
     public Result page(EmpQueryParam empQueryParam) {
@@ -34,8 +32,6 @@ public class EmpController {
 
     /**
      * 根据前端传来的json员工信息封装添加到数据库
-     * @param emp
-     * @return
      */
     @PostMapping("/emps")
     public Result add(@RequestBody Emp emp) {
@@ -46,7 +42,6 @@ public class EmpController {
 
     /**
      * 根据id删除员工
-     * @return
      */
     @DeleteMapping("/emps")
     // 当使用list集合接收参数时要添加注解@RequestParam
@@ -78,7 +73,6 @@ public class EmpController {
 
     /**
      * 查询所有员工
-     * @return
      */
     @GetMapping("/emps/list")
     public Result list() {
