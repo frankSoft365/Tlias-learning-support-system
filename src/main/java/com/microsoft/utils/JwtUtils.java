@@ -1,5 +1,6 @@
 package com.microsoft.utils;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 
@@ -19,5 +20,9 @@ public class JwtUtils {
                 claims(dataMap).
                 expiration(expirationDate).
                 compact();
+    }
+    public static void parseToken(String token) {
+        SecretKey key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
+        Claims payload = Jwts.parser().verifyWith(key).build().parseSignedClaims(token).getPayload();
     }
 }
