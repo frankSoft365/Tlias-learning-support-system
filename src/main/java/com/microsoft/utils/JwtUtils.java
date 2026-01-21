@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class JwtUtils {
     private static final String SECRET_KEY = "ZnJhbmtTb2Z0ZnJhbmtTb2Z0ZnJhbmtTb2Z0";
-    private static final long EXPIRATION_TIME = 12 * 3600 * 1000;
+    private static final long EXPIRATION_TIME = 2 * 3600 * 1000;
     public static String generateToken(Map<String, Object> dataMap) {
         SecretKey key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
         Date expirationDate = new Date(System.currentTimeMillis() + EXPIRATION_TIME);
@@ -21,8 +21,9 @@ public class JwtUtils {
                 expiration(expirationDate).
                 compact();
     }
-    public static void parseToken(String token) {
+    public static Claims parseToken(String token) {
         SecretKey key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
         Claims payload = Jwts.parser().verifyWith(key).build().parseSignedClaims(token).getPayload();
+        return payload;
     }
 }

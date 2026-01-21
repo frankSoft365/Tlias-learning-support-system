@@ -11,6 +11,7 @@ import com.microsoft.mapper.EmpMapper;
 import com.microsoft.pojo.*;
 import com.microsoft.service.EmpService;
 import com.microsoft.utils.JwtUtils;
+import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -156,5 +157,15 @@ public class EmpServiceImpl implements EmpService {
             return new LoginInfo(info.getId(), info.getUsername(), info.getName(), token);
         }
         return null;
+    }
+
+    /**
+     * 根据有效的token获取用户信息
+     */
+    @Override
+    public Emp getUserProfile(String token) {
+        // 解析存入token的用户信息
+        Claims claims = JwtUtils.parseToken(token);
+        return empMapper.getInfoById((Integer) claims.get("id"));
     }
 }

@@ -50,4 +50,6 @@ public interface EmpService {
      * 员工登录校验
      */
     LoginInfo login(Emp emp);
+
+    Emp getUserProfile(String token);
 }

@@ -19,12 +19,6 @@ public class TokenInterceptor implements HandlerInterceptor {
             log.info("直接放行OPTION请求");
             return true;
         }
-        // 检查请求路径 如果是登录 则允许访问接口
-        String requestURI = request.getRequestURI();
-        if (requestURI.contains("/login")) {
-            log.info("登录请求，允许访问接口");
-            return true;
-        }
         // 看这个请求有没有token 有则检查token有效性 没有则拒绝访问接口 返回401
         String authHeader = request.getHeader("Authorization");
         String token = null;
