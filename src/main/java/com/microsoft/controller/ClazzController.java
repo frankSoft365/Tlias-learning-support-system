@@ -1,5 +1,6 @@
 package com.microsoft.controller;
 
+import com.microsoft.anno.LogOperation;
 import com.microsoft.pojo.Clazz;
 import com.microsoft.pojo.ClazzQueryParam;
 import com.microsoft.pojo.PageResult;
@@ -30,6 +31,7 @@ public class ClazzController {
     /**
      * 新增班级
      */
+    @LogOperation
     @PostMapping("/clazzs")
     public Result add(@RequestBody Clazz clazz) {
         log.info("新增班级");
@@ -50,6 +52,7 @@ public class ClazzController {
     /**
      * 更改班级信息
      */
+    @LogOperation
     @PutMapping("/clazzs")
     public Result update(@RequestBody Clazz clazz) {
         log.info("更改班级信息");
@@ -60,6 +63,7 @@ public class ClazzController {
     /**
      * 根据id删除班级
      */
+    @LogOperation
     @DeleteMapping("/clazzs/{id}")
     public Result delete(@PathVariable Integer id) {
         log.info("根据id删除班级");

@@ -1,10 +1,13 @@
 package com.microsoft.controller;
 
+import com.microsoft.anno.LogOperation;
 import com.microsoft.pojo.Emp;
 import com.microsoft.pojo.EmpQueryParam;
 import com.microsoft.pojo.PageResult;
 import com.microsoft.pojo.Result;
 import com.microsoft.service.EmpService;
+import com.microsoft.service.impl.EmpServiceImpl;
+import com.microsoft.utils.CurrentHold;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +36,7 @@ public class EmpController {
     /**
      * 根据前端传来的json员工信息封装添加到数据库
      */
+    @LogOperation
     @PostMapping("/emps")
     public Result add(@RequestBody Emp emp) {
         log.info("新增员工的信息：{}", emp);
@@ -43,6 +47,7 @@ public class EmpController {
     /**
      * 根据id删除员工
      */
+    @LogOperation
     @DeleteMapping("/emps")
     // 当使用list集合接收参数时要添加注解@RequestParam
     public Result delete(@RequestParam List<Integer> ids) {
@@ -64,6 +69,7 @@ public class EmpController {
     /**
      * 用新的信息更新员工信息
      */
+    @LogOperation
     @PutMapping("/emps")
     public Result update(@RequestBody Emp emp) {
         log.info("更改员工信息 : {}", emp);
@@ -79,5 +85,18 @@ public class EmpController {
         log.info("查询所有员工");
         List<Emp> list = empService.list();
         return Result.success(list);
+    }
+
+    /**
+     * 根据有效的token获取员工信息
+     */
+    @GetMapping("/emps/profile")
+    public Result getUserProfile() {
+        log.info("根据登录后的token获取用户个人信息");
+        // 能访问此接口说明token有效 这个线程的ThreadLocal中存放有这个token的员工的id信息
+        Integer empId = CurrentHold.getCurrentId();
+        // 根据员工id查询员工信息并返回
+        Emp empInfo = empService.getEmpInfo(empId);
+        return Result.success(empInfo);
     }
 }

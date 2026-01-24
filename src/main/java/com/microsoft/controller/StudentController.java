@@ -1,5 +1,6 @@
 package com.microsoft.controller;
 
+import com.microsoft.anno.LogOperation;
 import com.microsoft.pojo.PageResult;
 import com.microsoft.pojo.Result;
 import com.microsoft.pojo.Student;
@@ -29,6 +30,7 @@ public class StudentController {
     /**
      * 新增学员
      */
+    @LogOperation
     @PostMapping("/students")
     public Result add(@RequestBody Student student) {
         log.info("新增学员");
@@ -49,6 +51,7 @@ public class StudentController {
     /**
      * 修改学员
      */
+    @LogOperation
     @PutMapping("/students")
     public Result update(@RequestBody Student student) {
         log.info("修改学员");
@@ -59,6 +62,7 @@ public class StudentController {
     /**
      * 根据id删除学员
      */
+    @LogOperation
     @DeleteMapping("/students/{ids}")
     public Result delete(@PathVariable List<Integer> ids) {
         log.info("根据id删除学员：{}", ids);
@@ -69,6 +73,7 @@ public class StudentController {
     /**
      * 违纪处理
      */
+    @LogOperation
     @PutMapping("/students/violation/{id}/{score}")
     public Result violationAction(@PathVariable Integer id, @PathVariable Integer score) {
         log.info("违纪处理，违纪学员id：{}，违纪扣分：{}", id, score);

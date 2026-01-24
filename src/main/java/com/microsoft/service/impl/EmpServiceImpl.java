@@ -45,7 +45,7 @@ public class EmpServiceImpl implements EmpService {
         PageHelper.startPage(empQueryParam.getPage(), empQueryParam.getPageSize());
         List<Emp> rows = empMapper.list(empQueryParam);
         Page<Emp> p = (Page<Emp>) rows;
-        return new PageResult<Emp>(p.getTotal(), p.getResult());
+        return new PageResult<>(p.getTotal(), p.getResult());
     }
 
     /**
@@ -157,15 +157,5 @@ public class EmpServiceImpl implements EmpService {
             return new LoginInfo(info.getId(), info.getUsername(), info.getName(), token);
         }
         return null;
-    }
-
-    /**
-     * 根据有效的token获取用户信息
-     */
-    @Override
-    public Emp getUserProfile(String token) {
-        // 解析存入token的用户信息
-        Claims claims = JwtUtils.parseToken(token);
-        return empMapper.getInfoById((Integer) claims.get("id"));
     }
 }

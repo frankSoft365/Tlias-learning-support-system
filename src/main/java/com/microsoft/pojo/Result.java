@@ -1,8 +1,12 @@
 package com.microsoft.pojo;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Result {
     // 状态码 1 成功 0 失败
     private Integer code;

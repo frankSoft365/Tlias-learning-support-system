@@ -36,8 +36,6 @@ public interface EmpMapper {
 
     /**
      * 根据id查询员工基本信息和工作经历
-     * @param id
-     * @return
      */
     Emp getInfoById(Integer id);
 

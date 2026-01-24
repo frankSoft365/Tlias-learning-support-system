@@ -1,5 +1,6 @@
 package com.microsoft.controller;
 
+import com.microsoft.anno.LogOperation;
 import com.microsoft.pojo.Dept;
 import com.microsoft.pojo.Result;
 import com.microsoft.service.DeptService;
@@ -33,6 +34,7 @@ public class DeptController {
      * @param id
      * @return Result对象
      */
+    @LogOperation
     @DeleteMapping("/depts")
     public Result delete(Integer id) {
         log.info("要删除的部门 : {}", id);
@@ -45,6 +47,7 @@ public class DeptController {
      * @param dept
      * @return Result对象
      */
+    @LogOperation
     @PostMapping("/depts")
     public Result add(@RequestBody Dept dept) {
         log.info("新增的部门的name : {}", dept.getName());
@@ -69,6 +72,7 @@ public class DeptController {
      * @param dept
      * @return Result对象
      */
+    @LogOperation
     @PutMapping("/depts")
     public Result update(@RequestBody Dept dept) {
         log.info("修改部门");
